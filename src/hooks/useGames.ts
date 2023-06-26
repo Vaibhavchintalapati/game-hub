@@ -36,7 +36,7 @@ function useGames() {
       })
       .catch(
         (err) => {
-            if (err instanceof CanceledError) return; 
+            if (err instanceof CanceledError) return;   
             setError(err.message);
             setLoading(false);
         });
