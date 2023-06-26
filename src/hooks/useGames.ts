@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
 import useData from "./useData";
+import { Genre } from "./useGenres";
 
 export interface Platform{
     id: number;
@@ -49,7 +50,7 @@ export interface Game {
 }
  */
 
-function useGames(){
-    return useData<Game>("/games")
+function useGames(onSelectedGenre: Genre | null){
+    return useData<Game>("/games", { params: { genres: onSelectedGenre?.id } }, [onSelectedGenre?.id])
 }
 export default useGames;

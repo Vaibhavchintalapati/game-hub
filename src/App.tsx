@@ -3,25 +3,34 @@ import NavBar from "./components/NavBar";
 
 import GameGrid from "./components/GameGrid";
 import GenresList from "./components/GenresList";
-
+import { Genre } from "./hooks/useGenres";
+import { useState } from "react";
 function App() {
+  const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
+  const handleGenreSelection = (item: Genre) => {
+    setSelectedGenre(item);
+  };
   return (
     <Grid
       templateAreas={{
         base: `"nav" "main" `,
         lg: `"nav nav" "aside main" `,
       }}
+      templateColumns={{
+        base: "1fr",
+        lg: "200px 1fr",
+      }}
     >
       <GridItem area="nav">
         <NavBar></NavBar>
       </GridItem>
       <Show above="lg">
-        <GridItem area="aside">
-          <GenresList></GenresList>
+        <GridItem area="aside" paddingX={5}>
+          <GenresList onGenreSelection={handleGenreSelection}></GenresList>
         </GridItem>
       </Show>
       <GridItem area="main">
-        <GameGrid></GameGrid>
+        <GameGrid onSelectedGenre={selectedGenre}></GameGrid>
       </GridItem>
     </Grid>
   );
