@@ -50,7 +50,9 @@ export interface Game {
 }
  */
 
-function useGames(onSelectedGenre: Genre | null){
-    return useData<Game>("/games", { params: { genres: onSelectedGenre?.id } }, [onSelectedGenre?.id])
+function useGames(onSelectedGenre: Genre | null, onSelectedPlatform: Platform | null) {
+    return useData<Game>("/games", 
+                         { params: { genres: onSelectedGenre?.id, platforms: onSelectedPlatform?.id } },
+                         [onSelectedGenre?.id, onSelectedPlatform?.id])
 }
 export default useGames;
